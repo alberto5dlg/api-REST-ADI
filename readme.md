@@ -2,4 +2,5 @@
 
 ##Lista de comandos para pruebas
 - Iniciar Servidor : node index.js
-Comando iniciar mongodb : mongod --dbpath Documents/databaseMongoDB
+
+- Comando iniciar mongodb : mongod --dbpath Documents/databaseMongoDB
