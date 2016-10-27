@@ -1,0 +1,25 @@
+{
+  "name": "practica_adi",
+  "version": "1.0.0",
+  "description": "Practica 2 de ADI desarrollo de un API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alberto5dlg/practica2ADI.git"
+  },
+  "author": "Alberto de Lucas Gomez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alberto5dlg/practica2ADI/issues"
+  },
+  "homepage": "https://github.com/alberto5dlg/practica2ADI#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "faker": "^3.1.0",
+    "nodemon": "^1.11.0"
+  }
+}
