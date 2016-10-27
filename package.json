@@ -1,25 +1,24 @@
 {
-  "name": "practica_adi",
+  "name": "api-rest-adi",
   "version": "1.0.0",
-  "description": "Practica 2 de ADI desarrollo de un API",
+  "description": "API REST para la practica 2 de ADI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alberto5dlg/practica2ADI.git"
+    "url": "git+https://github.com/alberto5dlg/api-REST-ADI.git"
   },
-  "author": "Alberto de Lucas Gomez",
+  "author": "Alberto de Lucas Gómez",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/alberto5dlg/practica2ADI/issues"
+    "url": "https://github.com/alberto5dlg/api-REST-ADI/issues"
   },
-  "homepage": "https://github.com/alberto5dlg/practica2ADI#readme",
+  "homepage": "https://github.com/alberto5dlg/api-REST-ADI#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "faker": "^3.1.0",
-    "nodemon": "^1.11.0"
+    "mongodb": "^2.2.11"
   }
 }
