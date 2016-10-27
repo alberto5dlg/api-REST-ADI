@@ -5,8 +5,10 @@ var app = express();
 app.use(bodyParser.json());
 
 var usuario = require('./routes/usuario');
+var noticia = require('./routes/noticia');
 
 app.use('/api/usuarios', usuario);
+app.use('/api/noticias', noticia)
 
 app.get('/',function(req, res) { 
 	res.send("Api REST para ADI");

@@ -1,11 +1,15 @@
 var Usuario = require('../models/usuario');
 
+
+//METODO GET
 exports.list = function(pet, res) {
 	Usuario.find(function(err, usuario) {
 		res.json(usuario);
 	});
 };
 
+
+//METODO GET 
 exports.findByLogin = function(pet, res) {
 	Usuario.findOne({login: pet.params.login}, function(err, usuario){
 		if(err) {
@@ -15,6 +19,7 @@ exports.findByLogin = function(pet, res) {
 	})
 }
 
+//METODO POST 
 exports.create = function(pet, res) {
 	var usuario = new Usuario(pet.body);
 
