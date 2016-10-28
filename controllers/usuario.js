@@ -12,23 +12,27 @@ exports.list = function(pet, res) {
 //METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {
 	Usuario.findOne({login: pet.params.login}, function(err, usuario){
-		if(err) {
-			return res.send(500, err.message);
-		}
-		res.json(usuario);
+		if(usuario == undefined){
+			res.status(404);
+			res.send("Usuario no existente.");
+		} else  {
+			res.status(200);
+			res.json(usuario);
+		}	
 	})
 }
 
 //METODO POST crear un nuevo usuario 
 exports.create = function(pet, res) {
 	var usuario = new Usuario(pet.body);
-
 	usuario.save(function(err, newUsuario) {
 		if(err){
-			res.json(400, err.usuario);
-		} 
-		else {
-			res.json(newUsuario);
+			res.status(400);
+			res.send("No se puede crear el usuario, algun campo es incorrecto");
+		} else {
+			res.status(201);
+        	res.header('Location','http://localhost:3000/api/usuarios/'+newUsuario.login);
+			res.send(newUsuario);
 		}
 	});
 }
@@ -38,11 +42,12 @@ exports.create = function(pet, res) {
 exports.deleteByLogin = function (pet, res) {
 	Usuario.findOne({login: pet.params.login}, function(err, usuario){
 		if(usuario == undefined){
-			res.status(400);
+			res.status(404);
 			res.send("Usuario no existente.");	
 		} else {
 			usuario.remove(function(err){
 				if (!err) {
+					res.status(204);
 					res.end();
 				} else {
 					resp.status(500);
@@ -51,6 +56,11 @@ exports.deleteByLogin = function (pet, res) {
 			});
 		}
 	});
+}
+
+//METODO PUT actualiza los datos de un usuario
+exports.updateByLogin = function (pet,res) {
+
 }
 
 
