@@ -23,9 +23,20 @@
 
 
 ### DELETE
+- **Usuarios**
+	
+	- /usuarios/:login -> Borramos el usuario indicado en el login
+	
+- **Noticias**
+
 
 
 ### PUT 
+- **Usuarios**
+
+	- /usuarios/:login -> Editamos al usuario que indicamos en el login a traves de un JSON con sus campos
+
+- **Noticias**
 
 
 ##Lista de comandos para pruebas

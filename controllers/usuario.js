@@ -28,8 +28,8 @@ exports.findByLogin = function(pet, res) {
 exports.create = function(pet, res) {
 	var usuario = new Usuario(pet.body);
 
-	f(newUsuario.login == undefined || newUsuario.nombre == undefined 
-	|| newUsuario.apellidos == undefined || newUsuario.email == undefined){
+	if(usuario.login == undefined || usuario.nombre == undefined 
+	|| usuario.apellidos == undefined || usuario.email == undefined){
 		res.status(400);
 		res.send("Faltan campos para poder crear el usuario.");
 	} 
