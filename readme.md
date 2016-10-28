@@ -1,25 +1,36 @@
 #Api REST Practica 2 ADI 
 
 ##Metodos Implementados 
-- GET: 
+### GET: 
+- **Usuarios**
 
--- /usuarios/:login -> Busca un usuario por login
+	- /usuarios/:login -> Busca un usuario por login
 
--- /usuarios -> Devuelve todos los usuarios
+	- /usuarios -> Devuelve todos los usuarios
 
--- /noticias -> Coleccion de Noticias
+- **Noticias**
 
-- POST 
+	- /noticias -> Coleccion de Noticias
 
--- /usuarios/nuevo -> A partir de un JSON que se le pasa añade un nuevo usuario a la base de datos 
+### POST 
+- **Usuarios**
 
--- /noticias/nuevo -> Añade una nueva noticia
+	- /usuarios/nuevo -> A partir de un JSON que se le pasa añade un nuevo usuario a la base de datos 
 
-- DELETE 
+- **Noticias** 
 
-- PUT 
+	- /noticias/nuevo -> Añade una nueva noticia
+
+
+### DELETE
+
+
+### PUT 
+
 
 ##Lista de comandos para pruebas
-- Iniciar Servidor : node index.js
+Estos comandos se usan en un sistema operativo con MacOs. 
 
-- Comando iniciar mongodb : mongod --dbpath Documents/databaseMongoDB
+- **Iniciar Servidor :** node index.js
+
+- **Comando iniciar mongodb :** mongod --dbpath Documents/databaseMongoDB  *(en mi ordenador)*
