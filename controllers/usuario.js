@@ -1,4 +1,6 @@
 var Usuario = require('../models/usuario');
+var mongodb = require('mongodb');
+var ObjectID = mongodb.ObjectID;
 
 
 //METODO GET devuelve todos los usuarios
@@ -31,7 +33,7 @@ exports.create = function(pet, res) {
 			res.send("No se puede crear el usuario, algun campo es incorrecto");
 		} else {
 			res.status(201);
-        	res.header('Location','http://localhost:3000/api/usuarios/'+newUsuario.login);
+        	res.header('Location','http://localhost:3000/api/usuarios/'+ newUsuario.login);
 			res.send(newUsuario);
 		}
 	});
@@ -50,7 +52,7 @@ exports.deleteByLogin = function (pet, res) {
 					res.status(204);
 					res.end();
 				} else {
-					resp.status(500);
+					res.status(500);
 					console.log("No se ha podido borrar: "+err);
 				}
 			});
@@ -60,7 +62,30 @@ exports.deleteByLogin = function (pet, res) {
 
 //METODO PUT actualiza los datos de un usuario
 exports.updateByLogin = function (pet,res) {
+	var newUsuario = new Usuario(pet.body);
 
+	Usuario.findOne({login: pet.params.login}, function(err, usuario){
+		if(usuario == undefined){
+			res.status(404);
+			res.send("El usuario a modificar no existe.");
+		} else {
+			usuario.nombre = newUsuario.nombre;
+			usuario.apellidos = newUsuario.apellidos;
+			usuario.email = newUsuario.email;
+			usuario.login = newUsuario.login;
+			Usuario.update({_id: usuario._id}, usuario, function(err) {
+				if(err) {
+					console.log(err);
+					res.status(500);
+					res.end();
+				} else {
+					res.status(204);
+					res.send(usuario);
+					res.end();
+				}
+			});
+		}
+	});
 }
 
 
