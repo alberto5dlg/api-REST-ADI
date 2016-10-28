@@ -1,7 +1,7 @@
 var Usuario = require('../models/usuario');
 
 
-//METODO GET
+//METODO GET devuelve todos los usuarios
 exports.list = function(pet, res) {
 	Usuario.find(function(err, usuario) {
 		res.json(usuario);
@@ -9,7 +9,7 @@ exports.list = function(pet, res) {
 };
 
 
-//METODO GET 
+//METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {
 	Usuario.findOne({login: pet.params.login}, function(err, usuario){
 		if(err) {
@@ -19,7 +19,7 @@ exports.findByLogin = function(pet, res) {
 	})
 }
 
-//METODO POST 
+//METODO POST crear un nuevo usuario 
 exports.create = function(pet, res) {
 	var usuario = new Usuario(pet.body);
 
@@ -32,3 +32,28 @@ exports.create = function(pet, res) {
 		}
 	});
 }
+
+
+//METODO DELETE borra un usuario 
+exports.deleteByLogin = function (pet, res) {
+	Usuario.findOne({login: pet.params.login}, function(err, usuario){
+		if(usuario == undefined){
+			res.status(400);
+			res.send("Usuario no existente.");	
+		} else {
+			usuario.remove(function(err){
+				if (!err) {
+					res.end();
+				} else {
+					resp.status(500);
+					console.log("No se ha podido borrar: "+err);
+				}
+			});
+		}
+	});
+}
+
+
+
+
+
