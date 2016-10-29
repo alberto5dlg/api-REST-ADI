@@ -1,7 +1,4 @@
 var Usuario = require('../models/usuario');
-var mongodb = require('mongodb');
-var ObjectID = mongodb.ObjectID;
-
 
 //METODO GET devuelve todos los usuarios
 exports.list = function(pet, res) {
