@@ -33,6 +33,20 @@ exports.create = function(pet, res) {
 	}
 }
 
+//METODO GET noticia por ID 
+exports.findById = function(pet, res) {
+	Noticia.findOne({noticiaID: pet.params.id}, function(err, noticia) {
+		if(noticia == undefined){
+			res.status(404);
+			res.send("Noticia no encontrada");
+		}
+		else {
+			res.status(200);
+			res.send(noticia);
+		}
+	});
+}
+
 function fechaDeHoy(){
     var today = new Date();
     var dd = today.getDate();
