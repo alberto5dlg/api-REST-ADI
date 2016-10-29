@@ -47,10 +47,35 @@ exports.findById = function(pet, res) {
 	});
 }
 
+//METODO DELETE noticia por ID 
+exports.deleteById = function(pet, res) {
+	Noticia.findOne({noticiaID: pet.params.id}, function(err, noticia){ 
+		if(noticia == undefined){
+			res.status(204);
+			res.send("No existe la noticia que desea Borrar");
+		}
+		else {
+			noticia.remove(function(err) {
+				if(!err){
+					res.status(204);
+					res.end();
+				}
+				else {
+					res.status(500);
+					console.log("No se ha podido borrar: "+err);
+					res.send();
+				}
+			});
+		}
+	});
+}
+
+
+//Funcion Auxiliar para calcular la hora
 function fechaDeHoy(){
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth()+1;
     var yyyy = today.getFullYear();
 
     if(dd<10) {
