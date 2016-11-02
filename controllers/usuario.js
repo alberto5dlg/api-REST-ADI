@@ -1,13 +1,5 @@
 var Usuario = require('../models/usuario');
 
-//METODO GET devuelve todos los usuarios
-exports.list = function(pet, res) {
-	Usuario.find(function(err, usuario) {
-		res.json(usuario);
-	});
-};
-
-
 //METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {
 	Usuario.findOne({login: pet.params.login}, function(err, usuario){
@@ -98,6 +90,55 @@ exports.updateByLogin = function (pet,res) {
 			}
 		});
 	}
+}
+
+//Metodo GET todos los usuarios con paginacion 
+exports.listAllUsers = function(pet, res) {
+	var lista = Usuario.find().limit(2);
+
+	lista.then(function(usuarios) {
+		var response = {
+			links: {
+				next: 'http://localhost:3000/api/usuarios/pag/1',
+			},
+			data: usuarios
+		};
+		res.status(200);
+		res.send(response);
+	});
+	lista.catch(function (err){
+		res.status(500);
+		res.end();
+	});
+}
+
+//Metodo GET paginas de coleccion de usuarios 
+
+//Metodo GET por paginacion HAL 
+exports.listPageUsers = function(pet, res) {
+	var pag = parseInt(pet.params.number);
+	var lista = Usuario.find().limit(2).skip(pag*2);
+
+	var sigPag = pag + 1; 
+	var antPag = pag - 1; 
+	lista.then(function (usuarios) {
+		var response = {
+			links: {
+				next: 'http://localhost:3000/api/usuarios/pag/' + sigPag,
+				previous : 'http://localhost:3000/api/usuarios/pag/' + antPag
+			},
+			data: usuarios
+		}
+		if(pag === 0) {
+			response.links.previous = undefined;
+		}
+		res.status(200);
+		res.send(response);
+	});
+	lista.catch(function(err) {
+		res.status(500);
+		res.end();
+	});
 }
 
 
