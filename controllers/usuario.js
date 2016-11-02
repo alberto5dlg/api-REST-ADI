@@ -124,8 +124,10 @@ exports.listPageUsers = function(pet, res) {
 	lista.then(function (usuarios) {
 		var response = {
 			links: {
+				self: 'http://localhost:3000/api/usuarios/pag/' + pag,
+				first: 'http://localhost:3000/api/usuarios',
+				previous : 'http://localhost:3000/api/usuarios/pag/' + antPag,
 				next: 'http://localhost:3000/api/usuarios/pag/' + sigPag,
-				previous : 'http://localhost:3000/api/usuarios/pag/' + antPag
 			},
 			data: usuarios
 		}
