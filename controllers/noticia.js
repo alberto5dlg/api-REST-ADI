@@ -93,8 +93,10 @@ exports.listPage = function(pet, res) {
 	lista.then(function (noticias) {
 		var response = {
 			links: {
+				self: 'http://localhost:3000/api/noticias/pag/' + pag,
+				first: 'http://localhost:3000/api/noticias',
+				previous : 'http://localhost:3000/api/noticias/pag/' + antPag,
 				next: 'http://localhost:3000/api/noticias/pag/' + sigPag,
-				previous : 'http://localhost:3000/api/noticias/pag/' + antPag
 			},
 			data: noticias
 		}
