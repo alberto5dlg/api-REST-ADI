@@ -86,10 +86,7 @@ exports.listAll = function(pet, res) {
 //Metodo GET por paginacion HAL 
 exports.listPage = function(pet, res) {
 	var pag = parseInt(pet.params.number);
-	var indice = pag * 2; 
-	var lista = Noticia.find().limit(2).skip(indice);
-	var total = Noticia.count();
-	console.log(total);
+	var lista = Noticia.find().limit(2).skip(pag*2);
 
 	var sigPag = pag + 1; 
 	var antPag = pag - 1; 
