@@ -1,12 +1,5 @@
 var Noticia = require('../models/noticia');
 
-//METODO GET
-exports.list = function(pet, res) {
-	Noticia.find(function(err, noticia) {
-		res.json(noticia);
-	});
-};
-
 //METODO POST 
 exports.create = function(pet, res) {
 	var noticia = new Noticia(pet.body);
@@ -70,6 +63,55 @@ exports.deleteById = function(pet, res) {
 	});
 }
 
+//Metodo GET todas las noticias
+exports.listAll = function(pet, res) {
+	var lista = Noticia.find().limit(2);
+
+	lista.then(function(noticias) {
+		var response = {
+			links: {
+				next: 'http://localhost:3000/api/noticias/pag/1',
+			},
+			data: noticias
+		};
+		res.status(200);
+		res.send(response);
+	});
+	lista.catch(function (err){
+		res.status(500);
+		res.end();
+	});
+}
+
+//Metodo GET por paginacion HAL 
+exports.listPage = function(pet, res) {
+	var pag = parseInt(pet.params.number);
+	var indice = pag * 2; 
+	var lista = Noticia.find().limit(2).skip(indice);
+	var total = Noticia.count();
+	console.log(total);
+
+	var sigPag = pag + 1; 
+	var antPag = pag - 1; 
+	lista.then(function (noticias) {
+		var response = {
+			links: {
+				next: 'http://localhost:3000/api/noticias/pag/' + sigPag,
+				previous : 'http://localhost:3000/api/noticias/pag/' + antPag
+			},
+			data: noticias
+		}
+		if(pag === 0) {
+			response.links.previous = undefined;
+		}
+		res.status(200);
+		res.send(response);
+	});
+	lista.catch(function(err) {
+		res.status(500);
+		res.end();
+	});
+}
 
 //Funcion Auxiliar para calcular la hora
 function fechaDeHoy(){
