@@ -112,8 +112,6 @@ exports.listAllUsers = function(pet, res) {
 	});
 }
 
-//Metodo GET paginas de coleccion de usuarios 
-
 //Metodo GET por paginacion HAL 
 exports.listPageUsers = function(pet, res) {
 	var pag = parseInt(pet.params.number);
