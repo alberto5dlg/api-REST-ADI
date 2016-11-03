@@ -3,9 +3,7 @@
 exports.isAdmin = function (pet, res) {
 	if(!pet.get('authorization'))
 	{
-		res.status(401);
-        res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
-        res.end();
+		return false;
 	}
 	else {
 		var data = getLoginAndPass(pet.get('authorization'));

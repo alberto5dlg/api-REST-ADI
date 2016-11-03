@@ -15,9 +15,20 @@ describe('Prueba de los metodos de noticias', function() {
     		.expect(201, done);
 	});
 
+	it('Crear una Noticia', function(done) {
+		supertest(index)
+			.post('/api/noticias/nuevo')
+			.auth('admin', '123456')
+			.set('Content-Type', 'application/json')
+    		.send({"titular":"Noticias Test2",
+    				"cuerpoNoticia":"Prueba de nueva noticia, Prueba de nueva noticia, Prueba de nueva noticia2",
+    				"autor":"Supertest2"})
+    		.expect(201, done);
+	});
+
 	it('Buscamos una noticia por ID', function(done) {
 		supertest(index)
-			.get('/api/noticias/0')
+			.get('/api/noticias/1')
 			.expect(200, done);
 	});
 

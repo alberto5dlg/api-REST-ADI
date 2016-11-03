@@ -58,7 +58,12 @@ exports.deleteByLogin = function (pet, res) {
 			}
 		});
 	}
-	else {
+	else if(!pet.get('authorization')) { 
+		res.status(401);
+        res.header('WWW-Authenticate', 'Basic realm="myRealm"');
+        res.end();
+    } 
+    else {
 		res.status(403);
 		res.send('No tiene permisos para realizar esta accion');
 		res.end();
@@ -100,7 +105,11 @@ exports.updateByLogin = function (pet,res) {
 			});
 		}
 	}
-	else {
+	else if(!pet.get('authorization')) { 
+		res.status(401);
+        res.header('WWW-Authenticate', 'Basic realm="myRealm"');
+        res.end();
+    } else {
 		res.status(403);
 		res.send('No tiene permisos para realizar esta accion');
 		res.end();
