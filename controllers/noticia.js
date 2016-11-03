@@ -3,7 +3,7 @@ var auth = require('../controllers/auth');
 
 //METODO POST 
 exports.create = function(pet, res) {
-	if(auth.isAdmin(pet)){
+	if(auth.isAdmin(pet, res)){
 		var noticia = new Noticia(pet.body);
 		if (noticia.titular == undefined || noticia.cuerpoNoticia == undefined || noticia.autor == undefined) {
 			res.status(400);
@@ -50,7 +50,7 @@ exports.findById = function(pet, res) {
 
 //METODO DELETE noticia por ID 
 exports.deleteById = function(pet, res) {
-	if(auth.isAdmin(pet)){
+	if(auth.isAdmin(pet, res)){
 		Noticia.findOne({noticiaID: pet.params.id}, function(err, noticia){ 
 			if(noticia == undefined){
 				res.status(404);

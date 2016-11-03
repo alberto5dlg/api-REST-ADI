@@ -1,8 +1,14 @@
 
 
-exports.isAdmin = function (auth) {
-	var data = getLoginAndPass(auth.get('authorization'));
-	if (data.username === 'admin' || data.password === '123456') {
+exports.isAdmin = function (pet, res) {
+	if(!pet.get('authorization'))
+	{
+		res.status(401);
+        res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
+        res.end();
+	}
+	var data = getLoginAndPass(pet.get('authorization'));
+	if (data.username === 'admin' && data.password === '123456') {
     	return true;
  	}
  	return false;
