@@ -1,4 +1,5 @@
 var Noticia = require('../models/noticia');
+var auth = require('../controllers/auth');
 
 //METODO POST 
 exports.create = function(pet, res) {
@@ -42,25 +43,32 @@ exports.findById = function(pet, res) {
 
 //METODO DELETE noticia por ID 
 exports.deleteById = function(pet, res) {
-	Noticia.findOne({noticiaID: pet.params.id}, function(err, noticia){ 
-		if(noticia == undefined){
-			res.status(204);
-			res.send("No existe la noticia que desea Borrar");
-		}
-		else {
-			noticia.remove(function(err) {
-				if(!err){
-					res.status(204);
-					res.end();
-				}
-				else {
-					res.status(500);
-					console.log("No se ha podido borrar: "+err);
-					res.send();
-				}
-			});
-		}
-	});
+	if(auth.isAdmin(pet)){
+		Noticia.findOne({noticiaID: pet.params.id}, function(err, noticia){ 
+			if(noticia == undefined){
+				res.status(404);
+				res.send("No existe la noticia que desea Borrar");
+			}
+			else {
+				noticia.remove(function(err) {
+					if(!err){
+						res.status(204);
+						res.end();
+					}
+					else {
+						res.status(500);
+						console.log("No se ha podido borrar: "+err);
+						res.send();
+					}
+				});
+			}
+		});
+	}
+	else {
+		res.status(403);
+		res.send('No tiene permisos para realizar esta accion');
+		res.end();
+	}
 }
 
 //Metodo GET todas las noticias
