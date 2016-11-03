@@ -16,31 +16,24 @@ exports.findByLogin = function(pet, res) {
 
 //METODO POST crear un nuevo usuario 
 exports.create = function(pet, res) {
-	if(auth.isAdmin(pet, res)){
-		var usuario = new Usuario(pet.body);
+	var usuario = new Usuario(pet.body);
 
-		if(usuario.login == undefined || usuario.nombre == undefined 
-		|| usuario.apellidos == undefined || usuario.email == undefined){
-			res.status(400);
-			res.send("Faltan campos para poder crear el usuario.");
-		} 
-		else {	
-			usuario.save(function(err, newUsuario) {
-				if(err){
-					res.status(400);
-					res.send("No se puede crear el usuario, algun campo es incorrecto");
-				} else {
-					res.status(201);
-		        	res.header('Location','http://localhost:3000/api/usuarios/'+ newUsuario.login);
-					res.send(newUsuario);
-				}
-			});
-		}
-	}
-	else {
-		res.status(403);
-		res.send('No tiene permisos para realizar esta accion');
-		res.end();
+	if(usuario.login == undefined || usuario.nombre == undefined 
+	|| usuario.apellidos == undefined || usuario.email == undefined){
+		res.status(400);
+		res.send("Faltan campos para poder crear el usuario.");
+	} 
+	else {	
+		usuario.save(function(err, newUsuario) {
+			if(err){
+				res.status(400);
+				res.send("No se puede crear el usuario, algun campo es incorrecto");
+			} else {
+				res.status(201);
+	        	res.header('Location','http://localhost:3000/api/usuarios/'+ newUsuario.login);
+				res.send(newUsuario);
+			}
+		});
 	}
 }
 
