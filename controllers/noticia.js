@@ -3,27 +3,34 @@ var auth = require('../controllers/auth');
 
 //METODO POST 
 exports.create = function(pet, res) {
-	var noticia = new Noticia(pet.body);
-	if (noticia.titular == undefined || noticia.cuerpoNoticia == undefined || noticia.autor == undefined) {
-		res.status(400);
-		res.send("Faltan campos por insertar");
-	} 
-	else {
-		noticia.fecha = fechaDeHoy();
-		Noticia.count({}, function(err,count){
-			noticia.noticiaID = count;
-			noticia.save(function(err, newNoticia) {
-				if(err){
-					res.status(500);
-					res.end();
-				} 
-				else {
-					res.status(201);
-					res.header('Location','http://localhost:3000/api/noticias/'+ noticia.noticiaID);
-					res.send(newNoticia);
-				}
+	if(auth.isAdmin(pet)){
+		var noticia = new Noticia(pet.body);
+		if (noticia.titular == undefined || noticia.cuerpoNoticia == undefined || noticia.autor == undefined) {
+			res.status(400);
+			res.send("Faltan campos por insertar");
+		} 
+		else {
+			noticia.fecha = fechaDeHoy();
+			Noticia.count({}, function(err,count){
+				noticia.noticiaID = count;
+				noticia.save(function(err, newNoticia) {
+					if(err){
+						res.status(500);
+						res.end();
+					} 
+					else {
+						res.status(201);
+						res.header('Location','http://localhost:3000/api/noticias/'+ noticia.noticiaID);
+						res.send(newNoticia);
+					}
+				});
 			});
-		});
+		}
+	}
+	else { 
+		res.status(403);
+		res.send('No tiene permisos para realizar esta accion');
+		res.end();
 	}
 }
 
