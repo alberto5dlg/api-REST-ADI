@@ -21,23 +21,23 @@
 
 - **Noticias** 
 
-	- **/noticias/nuevo** -> Añade una nueva noticia
+	- **/noticias/nuevo** -> Añade una nueva noticia, para añadir esta nueva noticias será necesario autentificarse con el username: admin y password: 123456
 
 
 ### DELETE
 - **Usuarios**
 	
-	- **/usuarios/:login** -> Borramos el usuario indicado en el login
+	- **/usuarios/:login** -> Borramos el usuario indicado en el login, para borrar un usuario será necesario autentificarse con el username: admin y password: 123456
 	
 - **Noticias**
 	
-	- **/noticias/:id** -> Borramos una noticia a partir de su ID
+	- **/noticias/:id** -> Borramos una noticia a partir de su ID, para borrar una noticia será necesario autentificarse con el username: admin y password: 123456
 
 
 ### PUT 
 - **Usuarios**
 
-	- **/usuarios/:login** -> Editamos al usuario que indicamos en el login a traves de un JSON con sus campos
+	- **/usuarios/:login** -> Editamos al usuario que indicamos en el login a traves de un JSON con sus campos, para la edicion de datos de un usuario será necesario autentificarse con el username: admin y password: 123456
 
 
 
