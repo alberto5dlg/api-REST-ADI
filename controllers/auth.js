@@ -7,11 +7,13 @@ exports.isAdmin = function (pet, res) {
         res.setHeader('WWW-Authenticate', 'Basic realm="Secure Area"');
         res.end();
 	}
-	var data = getLoginAndPass(pet.get('authorization'));
-	if (data.username === 'admin' && data.password === '123456') {
-    	return true;
- 	}
- 	return false;
+	else {
+		var data = getLoginAndPass(pet.get('authorization'));
+		if (data.username === 'admin' && data.password === '123456') {
+	    	return true;
+	 	}
+	 	return false;
+	 }
 }
 
 
