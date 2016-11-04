@@ -1,5 +1,6 @@
 var Noticia = require('../models/noticia');
-var auth = require('../controllers/auth');
+var auth = require('../utils/auth');
+var utils = require('../utils/utils');
 
 //METODO POST 
 exports.create = function(pet, res) {
@@ -10,7 +11,7 @@ exports.create = function(pet, res) {
 			res.send("Faltan campos por insertar");
 		} 
 		else {
-			noticia.fecha = fechaDeHoy();
+			noticia.fecha = utils.fechaDeHoy();
 			Noticia.count({}, function(err,count){
 				noticia.noticiaID = count;
 				noticia.save(function(err, newNoticia) {
@@ -135,23 +136,4 @@ exports.listPage = function(pet, res) {
 		res.status(500);
 		res.end();
 	});
-}
-
-//Funcion Auxiliar para calcular la hora
-function fechaDeHoy(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
-
-    if(dd<10) {
-        dd='0'+dd;
-    } 
-
-    if(mm<10) {
-        mm='0'+mm;
-    } 
-
-    today = dd+'/'+mm+'/'+yyyy;
-    return today; 
 }
