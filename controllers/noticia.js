@@ -1,5 +1,8 @@
 var Noticia = require('../models/noticia');
-var auth = require('../controllers/auth');
+var auth = require('../utils/auth');
+var utils = require('../utils/utils');
+var Comentario = require('../models/comentario');
+var Usuario = require('../models/usuario');
 
 //METODO POST 
 exports.create = function(pet, res) {
@@ -10,7 +13,7 @@ exports.create = function(pet, res) {
 			res.send("Faltan campos por insertar");
 		} 
 		else {
-			noticia.fecha = fechaDeHoy();
+			noticia.fecha = utils.fechaDeHoy();
 			Noticia.count({}, function(err,count){
 				noticia.noticiaID = count;
 				noticia.save(function(err, newNoticia) {
@@ -137,21 +140,58 @@ exports.listPage = function(pet, res) {
 	});
 }
 
-//Funcion Auxiliar para calcular la hora
-function fechaDeHoy(){
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1;
-    var yyyy = today.getFullYear();
+//Metodo POST comentario en una noticia
+exports.commentNews = function(pet, res) {
+	var coment = new Comentario(pet.body);
 
-    if(dd<10) {
-        dd='0'+dd;
-    } 
-
-    if(mm<10) {
-        mm='0'+mm;
-    } 
-
-    today = dd+'/'+mm+'/'+yyyy;
-    return today; 
+	if(coment.texto == undefined ) {
+		res.status(400);
+		res.send("Faltan campos obligatorios.");
+		res.end();
+	}else {
+		coment.fecha = utils.fechaDeHoy();
+		coment.hora = utils.getHora();
+		coment.noticiaID = pet.params.id;
+		coment.usuarioLogin = pet.params.login;
+		Comentario.count({}, function(err, count){
+			coment.comentarioID = count;
+			Usuario.findOne({login: pet.params.login}, function(err, usuario){
+				if(usuario == undefined){
+					res.status(403);
+					res.send("Usuario no existente, no es posible publicar el comentario");
+					res.end();
+				} else {
+					Noticia.findOne({noticiaID: pet.params.id},function(err, noticia) {
+						if(noticia == undefined){
+							res.status(403);
+							res.send("Noticia no existente, no es posible publicar el comentario");
+							res.end();
+						} else  {
+							noticia.comentariosID.push(coment.comentarioID);
+							usuario.comentariosID.push(coment.comentarioID);
+							Noticia.update({noticiaID: noticia.noticiaID},noticia,function(){});
+							Usuario.update({login: usuario.login},usuario, function(){});
+							coment.save(function(err, newComent){
+								if(err){
+									res.status(500);
+									res.end();
+								} 
+								else {
+									res.status(201);
+									res.header('Location','http://localhost:3000/api/comentarios/'+ newComent.comentarioID);
+									res.send(newComent);
+								}
+							});
+						}
+					});
+				}
+			});
+		});
+	}
 }
+
+
+
+
+
+

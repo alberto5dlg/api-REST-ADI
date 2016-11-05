@@ -1,5 +1,5 @@
 var Usuario = require('../models/usuario');
-var auth = require('../controllers/auth');
+var auth = require('../utils/auth');
 
 //METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {

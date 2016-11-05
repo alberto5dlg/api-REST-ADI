@@ -6,7 +6,8 @@ var NoticiaSchema = new Schema({
 	cuerpoNoticia: 		{type: String},
 	autor: 				{type: String},
 	noticiaID: 			{type: Number},
-	fecha: 				{type: String}
+	fecha: 				{type: String},
+	comentariosID: 		[Number]
 });
 
 module.exports = mongoose.model('Noticia', NoticiaSchema);

@@ -8,10 +8,13 @@ module.exports = app;
 //Declaracion de variables segun la ruta
 var usuario = require('./routes/usuario');
 var noticia = require('./routes/noticia');
+var comentario = require('./routes/comentario');
 
 //Rutas de los metodos, segun clase
+app.use('/api/comentarios', comentario);
 app.use('/api/usuarios', usuario);
-app.use('/api/noticias', noticia)
+app.use('/api/noticias', noticia);
+
 
 //Ruta generica del Server
 app.get('/',function(req, res) { 
