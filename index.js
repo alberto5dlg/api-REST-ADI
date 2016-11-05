@@ -15,16 +15,35 @@ app.use('/api/comentarios', comentario);
 app.use('/api/usuarios', usuario);
 app.use('/api/noticias', noticia);
 
-
 //Ruta generica del Server
 app.get('/',function(req, res) { 
 	res.send("Api REST para ADI");
 });
 
+//Abrimos el puerto de Escucha para el servidor Node
+/*app.listen(3000,function() {
+	console.log("Servidor Node ejecutandose sobre http://localhost:3000");
+})*/
+
 //Conectamos con la Base de Datos
 db.start();
 
-//Abrimo el puerto de Escucha para el servidor Node
-app.listen(3000,function() {
-	console.log("Servidor Node ejecutandose sobre http://localhost:3000");
-})
+
+
+/******** APP EN REMOTO *******/
+
+
+app.set('port', (process.env.PORT || 5000));
+
+app.use(express.static(__dirname + '/public'));
+
+// views is directory for all template files
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+
+
+
