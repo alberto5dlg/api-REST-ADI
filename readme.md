@@ -1,27 +1,34 @@
 #Api REST Practica 2 ADI 
 
-##Metodos Implementados 
+##Casos de Uso 
 ### GET: 
 - **Usuarios**
 
-	- **/usuarios/:login** -> Busca un usuario por login
-	- **/usuarios/pag/:number** -> Devuelve los dos usuarios correspondientes a la pagina seleccionada con paginacion HAL 
-	- **/usuarios** -> Devuelve los dos primeros usuarios con paginacion HAL 
+	- **/usuarios/:login** -> Busca un usuario por login, muestra los ID* de los comentarios realizados por el usuario que se busca.
+	- **/usuarios/pag/:number** -> Devuelve los dos usuarios correspondientes a la pagina seleccionada con paginacion HAL. 
+	- **/usuarios** -> Devuelve los dos primeros usuarios con paginacion HAL.
 
 - **Noticias**
 	
-	- **/noticias/:id** -> Devuelve la noticia con el ID indicado
-	- **/noticias** -> Coleccion de Noticias con paginacion 
-	- **/noticias/pag/:number** -> Coleccion de noticias con paginacion a partir de la pagina indicada
+	- **/noticias/:id** -> Devuelve la noticia con el ID indicado, muestra el ID* de los comentarios asociados.
+	- **/noticias** -> Coleccion de Noticias con paginacion HAL.
+	- **/noticias/pag/:number** -> Coleccion de noticias con paginacion a partir de la pagina indicada.
+
+- **Comentarios**
+	
+	- **/comentarios** ->Devuelve una coleccion de comentarios con paginacion.
+	- **/comentarios/pag/:number** -> Devuelve la pagina con la coleccion de comentarios que contiene la pagina, paginacion HAL.
+	- **/comentarios/:id** -> Devuelve el contenido del comentario seleccionado por el id, asi como el login del usuario que lo ha hecho, el id de la noticia a la que pertenece y la fecha y hora en la que fue publicado.
 
 ### POST 
 - **Usuarios**
 
-	- **/usuarios/nuevo** -> A partir de un JSON que se le pasa añade un nuevo usuario a la base de datos 
+	- **/usuarios/nuevo** -> A partir de un JSON que se le pasa añade un nuevo usuario a la base de datos.
 
 - **Noticias** 
 
 	- **/noticias/nuevo** -> Añade una nueva noticia, para añadir esta nueva noticias será necesario autentificarse con el username: admin y password: 123456
+	- **/noticias/:id/comentar/:login** -> Añade un comentario a la noticia seleccionada por el id, del usuario seleccionado por el login, se comprobará que la noticia y el usuario existen.
 
 
 ### DELETE
