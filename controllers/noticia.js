@@ -1,6 +1,8 @@
 var Noticia = require('../models/noticia');
 var auth = require('../utils/auth');
 var utils = require('../utils/utils');
+var Comentario = require('../models/comentario');
+var Usuario = require('../models/usuario');
 
 //METODO POST 
 exports.create = function(pet, res) {
@@ -137,3 +139,59 @@ exports.listPage = function(pet, res) {
 		res.end();
 	});
 }
+
+//Metodo POST comentario en una noticia
+exports.commentNews = function(pet, res) {
+	var coment = new Comentario(pet.body);
+
+	if(coment.texto == undefined ) {
+		res.status(400);
+		res.send("Faltan campos obligatorios.");
+		res.end();
+	}else {
+		coment.fecha = utils.fechaDeHoy();
+		coment.hora = utils.getHora();
+		coment.noticiaID = pet.params.id;
+		coment.usuarioLogin = pet.params.login;
+		Comentario.count({}, function(err, count){
+			coment.comentarioID = count;
+			Usuario.findOne({login: pet.params.login}, function(err, usuario){
+				if(usuario == undefined){
+					res.status(403);
+					res.send("Usuario no existente, no es posible publicar el comentario");
+					res.end();
+				} else {
+					Noticia.findOne({noticiaID: pet.params.id},function(err, noticia) {
+						if(noticia == undefined){
+							res.status(403);
+							res.send("Noticia no existente, no es posible publicar el comentario");
+							res.end();
+						} else  {
+							noticia.comentariosID.push(coment.comentarioID);
+							usuario.comentariosID.push(coment.comentarioID);
+							Noticia.update({noticiaID: noticia.noticiaID},noticia,function(){});
+							Usuario.update({login: usuario.login},usuario, function(){});
+							coment.save(function(err, newComent){
+								if(err){
+									res.status(500);
+									res.end();
+								} 
+								else {
+									res.status(201);
+									res.header('Location','http://localhost:3000/api/comentarios/'+ newComent.comentarioID);
+									res.send(newComent);
+								}
+							});
+						}
+					});
+				}
+			});
+		});
+	}
+}
+
+
+
+
+
+
