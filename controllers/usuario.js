@@ -32,7 +32,7 @@ exports.create = function(pet, res) {
 				res.send("No se puede crear el usuario, algun campo es incorrecto");
 			} else {
 				res.status(201);
-	        	res.header('Location','http://localhost:3000/api/usuarios/'+ newUsuario.login);
+	        	res.header('Location','http://'+pet.hostname+'/api/usuarios/'+ newUsuario.login);
 				res.send(newUsuario);
 			}
 		});
@@ -148,10 +148,10 @@ exports.listPageUsers = function(pet, res) {
 	lista.then(function (usuarios) {
 		var response = {
 			links: {
-				self: 'http://localhost:3000/api/usuarios/pag/' + pag,
-				first: 'http://localhost:3000/api/usuarios',
-				previous : 'http://localhost:3000/api/usuarios/pag/' + antPag,
-				next: 'http://localhost:3000/api/usuarios/pag/' + sigPag,
+				self: 'http://'+pet.hostname+'/api/usuarios/pag/' + pag,
+				first: 'http://'+pet.hostname+'/api/usuarios',
+				previous : 'http://'+pet.hostname+'/api/usuarios/pag/' + antPag,
+				next: 'http://'+pet.hostname+'/api/usuarios/pag/' + sigPag,
 			},
 			data: usuarios
 		}

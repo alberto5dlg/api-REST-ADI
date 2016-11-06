@@ -1,5 +1,9 @@
 #Api REST Practica 2 ADI 
 
+Este API REST está desplegado en un servicio en cloud de Heroku : [API REST Heroku] (https://thawing-fjord-82104.herokuapp.com), y la Base de Datos MongoDB en un servidor de NodeChef.
+
+El codigo entregado esta preparado para correr en local, pero en la direccion de antes se puede comprobar su uso en remoto desde Heroku. 
+
 ##Casos de Uso 
 ### GET: 
 - **Usuarios**

@@ -23,7 +23,7 @@ exports.create = function(pet, res) {
 					} 
 					else {
 						res.status(201);
-						res.header('Location','http://localhost:3000/api/noticias/'+ noticia.noticiaID);
+						res.header('Location','http://'+pet.hostname+'/api/noticias/'+ noticia.noticiaID);
 						res.send(newNoticia);
 					}
 				});
@@ -98,7 +98,7 @@ exports.listAll = function(pet, res) {
 	lista.then(function(noticias) {
 		var response = {
 			links: {
-				next: 'http://localhost:3000/api/noticias/pag/1',
+				next: 'http://'+pet.hostname+'/api/noticias/pag/1',
 			},
 			data: noticias
 		};
@@ -121,10 +121,10 @@ exports.listPage = function(pet, res) {
 	lista.then(function (noticias) {
 		var response = {
 			links: {
-				self: 'http://localhost:3000/api/noticias/pag/' + pag,
-				first: 'http://localhost:3000/api/noticias',
-				previous : 'http://localhost:3000/api/noticias/pag/' + antPag,
-				next: 'http://localhost:3000/api/noticias/pag/' + sigPag,
+				self: 'http://'+pet.hostname+'/api/noticias/pag/' + pag,
+				first: 'http://'+pet.hostname+'/api/noticias',
+				previous : 'http://'+pet.hostname+'/api/noticias/pag/' + antPag,
+				next: 'http://'+pet.hostname+'/api/noticias/pag/' + sigPag,
 			},
 			data: noticias
 		}
@@ -178,7 +178,7 @@ exports.commentNews = function(pet, res) {
 								} 
 								else {
 									res.status(201);
-									res.header('Location','http://localhost:3000/api/comentarios/'+ newComent.comentarioID);
+									res.header('Location','http://'+pet.hostname+'/api/comentarios/'+ newComent.comentarioID);
 									res.send(newComent);
 								}
 							});
