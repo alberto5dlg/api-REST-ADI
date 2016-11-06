@@ -16,8 +16,8 @@ app.use('/api/usuarios', usuario);
 app.use('/api/noticias', noticia);
 
 //Ruta generica del Server
-app.get('/',function(req, res) { 
-	res.send("Api REST para ADI");
+app.get('/',function(pet, res) { 
+	res.send("Api REST para ADI: ");
 });
 
 //Abrimos el puerto de Escucha para el servidor Node
@@ -35,11 +35,8 @@ db.start();
 
 app.set('port', (process.env.PORT || 5000));
 
-var server = app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function() {
   console.log('Aplicacion node corriendo en el puerto: ', app.get('port'));
-  var host = server.address().address;
-   var port = server.address().port;
-   console.log('running at http://' + host + ':' + port)
 });
 
 

@@ -1,5 +1,7 @@
 var Usuario = require('../models/usuario');
 var auth = require('../utils/auth');
+var express = require('express');
+var app = express();
 
 //METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {
@@ -123,7 +125,7 @@ exports.listAllUsers = function(pet, res) {
 	lista.then(function(usuarios) {
 		var response = {
 			links: {
-				next: 'http://localhost:3000/api/usuarios/pag/1',
+				next: 'http://'+pet.hostname+':'+pet.app.get('port')+'/api/usuarios/pag/1',
 			},
 			data: usuarios
 		};
