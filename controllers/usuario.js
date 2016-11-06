@@ -2,6 +2,7 @@ var Usuario = require('../models/usuario');
 var auth = require('../utils/auth');
 var express = require('express');
 var app = express();
+var utils = require('../utils/utils');
 
 //METODO GET buscar un usuario por login 
 exports.findByLogin = function(pet, res) {
@@ -10,8 +11,13 @@ exports.findByLogin = function(pet, res) {
 			res.status(404);
 			res.send("Usuario no existente.");
 		} else  {
+			var links = utils.getComentUsers(usuario,pet.hostname);
+			var response = {
+				usuario,
+				links					
+			}
 			res.status(200);
-			res.json(usuario);
+			res.json(response);
 		}	
 	})
 }

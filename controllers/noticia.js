@@ -4,6 +4,7 @@ var utils = require('../utils/utils');
 var Comentario = require('../models/comentario');
 var Usuario = require('../models/usuario');
 
+
 //METODO POST 
 exports.create = function(pet, res) {
 	if(auth.isAdmin(pet, res)){
@@ -50,8 +51,13 @@ exports.findById = function(pet, res) {
 			res.send("Noticia no encontrada");
 		}
 		else {
+			var links = utils.getComentNews(noticia,pet.hostname);
+			var response = {
+				noticia,
+				links					
+			}
 			res.status(200);
-			res.send(noticia);
+			res.send(response);
 		}
 	});
 }

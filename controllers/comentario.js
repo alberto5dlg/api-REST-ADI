@@ -8,8 +8,25 @@ exports.findById = function(pet, res) {
 			res.send("Comentario no encontrado");
 		}
 		else {
+			var response = {
+				comentario,
+				links: {
+					0: {
+						rel: 'self',
+						href: 'http://'+pet.hostname+'/api/comentario/'+comentario.comentarioID,
+					},
+					1: {
+						rel: 'noticias',
+						href: 'http://'+pet.hostname+'/api/noticias/'+comentario.noticiaID,
+					},
+					2: {
+						rel: 'usuarios',
+						href: 'http://'+pet.hostname+'/api/usuarios/'+comentario.usuarioLogin,
+					}
+				}
+			}
 			res.status(200);
-			res.send(comentario);
+			res.send(response);
 		}
 	});
 }
@@ -21,7 +38,7 @@ exports.findAll = function(pet, res) {
 	lista.then(function(comentarios) {
 		var response = {
 			links: {
-				next: 'http://localhost:3000/api/comentarios/pag/1',
+				next: 'http://'+pet.hostname+'/api/comentarios/pag/1',
 			},
 			data: comentarios
 		};
@@ -44,10 +61,10 @@ exports.listPage = function(pet, res) {
 	lista.then(function (comentarios) {
 		var response = {
 			links: {
-				self: 'http://localhost:3000/api/comentarios/pag/' + pag,
-				first: 'http://localhost:3000/api/comentarios',
-				previous : 'http://localhost:3000/api/comentarios/pag/' + antPag,
-				next: 'http://localhost:3000/api/comentarios/pag/' + sigPag,
+				self: 'http://'+pet.hostname+'/api/comentarios/pag/' + pag,
+				first: 'http://'+pet.hostname+'/api/comentarios',
+				previous : 'http://'+pet.hostname+'/api/comentarios/pag/' + antPag,
+				next: 'http://'+pet.hostname+'/api/comentarios/pag/' + sigPag,
 			},
 			data: comentarios
 		}

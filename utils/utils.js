@@ -1,4 +1,3 @@
-var Usuario = require('../models/usuario');
 
 //Funcion Auxiliar para calcular la hora
 exports.fechaDeHoy = function(){
@@ -27,4 +26,57 @@ exports.getHora = function(){
 
     hora = hh+':'+mm+':'+ss;
     return hora; 
+}
+
+exports.getComentNews = function(noticia, hostname) {
+    var iterator = 1;
+    var total ={
+        0: {
+            rel: 'self',
+            href: 'http://'+hostname+'/api/noticia/'+noticia.noticiaID,
+        },
+    }
+    for(i = 0; i < noticia.comentariosID.length; i++)
+    {
+        var actual = {
+            [iterator]: {
+                rel: 'Comentario',
+                href: 'http://'+hostname+'/api/comentarios/'+noticia.comentariosID[i],
+            }
+        }
+        iterator++;
+        total = jsonConcat(total,actual);
+    }
+    return total;
+}
+
+exports.getComentUsers = function(usuario, hostname) {
+    var iterator = 1;
+    var total ={
+        0: {
+            rel: 'self',
+            href: 'http://'+hostname+'/api/usuario/'+usuario.login,
+        },
+    }
+    for(i = 0; i < usuario.comentariosID.length; i++)
+    {
+        
+        var actual = {
+            [iterator]: {
+                rel: 'Comentario',
+                href: 'http://'+hostname+'/api/comentarios/'+usuario.comentariosID[i],
+            }
+        }
+        iterator++;
+        total = jsonConcat(total,actual);
+    }
+
+    return total;
+}
+
+function jsonConcat(o1, o2) {
+ for (var key in o2) {
+  o1[key] = o2[key];
+ }
+ return o1;
 }
