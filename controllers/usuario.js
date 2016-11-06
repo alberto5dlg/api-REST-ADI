@@ -125,7 +125,7 @@ exports.listAllUsers = function(pet, res) {
 	lista.then(function(usuarios) {
 		var response = {
 			links: {
-				next: 'http://'+pet.ip+':'+pet.app.get('port')+'/api/usuarios/pag/1',
+				next: 'http://'+pet.hostname+'/api/usuarios/pag/1',
 			},
 			data: usuarios
 		};
