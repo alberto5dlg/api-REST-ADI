@@ -32,6 +32,7 @@ exports.findById = function(pet, res) {
 	});
 }
 
+
 //Metodo GET todos las comentarios
 exports.findAll = function(pet, res) {
 	var lista = Comentario.find().limit(2);

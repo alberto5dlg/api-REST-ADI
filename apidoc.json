@@ -1,0 +1,7 @@
+{
+  "name": "API REST ADI",
+  "version": "1.0.0",
+  "description": "API REST para la practica 1 de ADI",
+  "title": "Documentacion de mi API REST",
+  "url" : "http://api.test.com/v1"
+}

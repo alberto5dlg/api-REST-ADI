@@ -1,0 +1,1 @@
+{  "name": "API REST ADI",  "version": "1.0.0",  "description": "API REST para la practica 1 de ADI",  "title": "Documentacion de mi API REST",  "url": "http://api.test.com/v1",  "sampleUrl": false,  "apidoc": "0.2.0",  "generator": {    "name": "apidoc",    "time": "2016-11-07T22:43:31.670Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }}
