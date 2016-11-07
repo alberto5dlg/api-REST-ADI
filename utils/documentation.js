@@ -6,7 +6,7 @@
 	 * @apiGroup Comentarios
 	 *
 	 *
-	 * @apiSuccess {Number} code  Código 200 se han devuelto los comentarios de la pagina correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se han devuelto los comentarios de la pagina correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -58,7 +58,7 @@
 	 * @apiGroup Comentarios
 	 *
 	 *
-	 * @apiSuccess {Number} code  Código 200 se han devuelto los comentarios correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se han devuelto los comentarios correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -108,7 +108,7 @@
 	 *
 	 *@apiParam {Number} id Comentario id por el que se identifican.
 	 *
-	 * @apiSuccess {Number} code  Código 200 se han devuelto los comentarios correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se han devuelto los comentarios correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -158,7 +158,7 @@
 	 *
 	 *@apiParam {String} login Login por el que se identifica el usuario.
 	 *
-	 * @apiSuccess {Number} code  Código 200 se ha devuelto el usuario correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se ha devuelto el usuario correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -225,7 +225,7 @@
 	 *
 	 *@apiParam {Number} id ID por el que se identifica una noticia.
 	 *
-	 * @apiSuccess {Number} code  Código 200 se ha devuelto la noticia correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se ha devuelto la noticia correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -276,7 +276,7 @@
 	 * @apiGroup Noticias
 	 *
 	 *
-	 * @apiSuccess {Number} code  Código 200 se han devuelto las noticias correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se han devuelto las noticias correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -333,7 +333,7 @@
 	 * @apiGroup Usuarios
 	 *
 	 *
-	 * @apiSuccess {Number} code  Código 200 se han devuelto los usuarios correctamente.
+	 * @apiSuccess {Number} 200  Código 200 se han devuelto los usuarios correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 200 OK
@@ -382,14 +382,14 @@
 	 */
 
 	/**
-	 * @api {delete} /usuario/:login Elimina un usuario por su login
+	 * @api {delete} /usuarios/:login Elimina un usuario por su login
 	 * @apiVersion 1.0.0
 	 * @apiName DeleteUser
 	 * @apiGroup Usuarios
 	 *
 	 * @apiParam {String} login Login por el que se identifica a un Usuario 
 	 *
-	 * @apiSuccess {Number} code  Código 204 se ha borrado correctamente.
+	 * @apiSuccess {Number} 204  Código 204 se ha borrado correctamente.
 	 *
 	 * @apiSuccessExample Success-Response:
 	 *     HTTP/1.1 204 OK
@@ -411,6 +411,170 @@
 	 *     }
 	 */
 
+	 /**
+	 * @api {delete} /noticias/:id Elimina una noticia por su ID
+	 * @apiVersion 1.0.0
+	 * @apiName DeleteNews
+	 * @apiGroup Noticias
+	 *
+	 * @apiParam {String} id ID por el que se identifica la noticia 
+	 *
+	 * @apiSuccess {Number} 204  Código 204 se ha borrado correctamente.
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 204 OK
+	 *     {
+	 *     }
+	 *
+	 * @apiError NewsNotFound El id no es correcto no se puede borrar.
+	 * @apiError Not Authentificated No te has autentificado para poder borrar.
+	 *
+	 * @apiErrorExample Error-Response:
+	 *     HTTP/1.1 401 Unauthorizated
+	 *     {
+	 *       
+	 *     }
+	 * @apiErrorExample Error-Response:
+	 *     HTTP/1.1 404 Unauthorizated
+	 *     {
+	 *       "Noticia no encontrada"
+	 *     }
+	 */
+
+	 /**
+	 * @api {post} /usuarios/nuevo Crea un usuario
+	 * @apiVersion 1.0.0
+	 * @apiName PostUser
+	 * @apiGroup Usuarios
+	 *
+	 * @apiSuccess {Number} 201  Código 201 se ha creado correctamente.
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 201 Created
+	 *     {
+	 	{
+		  "__v": 0,
+		  "nombre": "Fernando",
+		  "apellidos": "Sanchez",
+		  "login": "ferSan",
+		  "email": "ferSan@gmail.com",
+		  "_id": "5821075cecdad95a25e8e547",
+		  "comentariosID": []
+		}
+	 *        
+	 *     }
+	 *
+	 * @apiError UserBadResponse El usuario no ha podido crearse
+	 *
+	 * @apiError BaD-Response:
+	 *     HTTP/1.1 400 Bad Response
+	 *     {
+	 *       "El usuario no ha podido crearse, falta algun campo del formulario" 
+	 *     }
+	 */
+
+	 /**
+	 * @api {post} /noticias/nuevo Crea una noticia
+	 * @apiVersion 1.0.0
+	 * @apiName postNews
+	 * @apiGroup Noticias
+	 *
+	 * @apiSuccess {Number} 201  Código 201 se ha creado correctamente.
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 201 Created
+	 *     {
+	 	{
+		  "__v": 0,
+		  "noticiaID": 7,
+		  "fecha": "08/11/2016",
+		  "titular": "El Barcelona jugara esta semana contra el Sevilla",
+		  "cuerpoNoticia": "El FC Barcelona se jugara contra el Sevilla esta semana un partido muy importante para sus aspiraciones en La Liga. El barcelona viene de perder su partido de Champions ante el Manchester City de Guardiola, veremos si ese partido les pasa factura este domingo",
+		  "autor": "Antonio Delfin",
+		  "_id": "582107bd66e58b5a4d17186f",
+		  "comentariosID": []
+		}
+	 *        
+	 *     }
+	 *
+	 * @apiError UserBadResponse La noticia no ha podido crearse
+	 *
+	 * @apiError BaD-Response:
+	 *     HTTP/1.1 400 Bad Response
+	 *     {
+	 *       "La noticia no ha podido crearse, falta algun campo del formulario" 
+	 *     }
+	 */
+
+	 /**
+	 * @api {post} /noticias/:id/comentar/:login Añade un comentario de un usuario en la noticia
+	 * @apiVersion 1.0.0
+	 * @apiName postComentNews
+	 * @apiGroup Comentarios
+	 *
+	 * @apiSuccess {Number} 201  Código 201 se ha creado correctamente.
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 201 Created
+	 *     {
+	 	{
+		  {
+			  "__v": 0,
+			  "comentarioID": 7,
+			  "usuarioLogin": "taniapp",
+			  "noticiaID": 1,
+			  "hora": "0:2:57",
+			  "fecha": "08/11/2016",
+			  "texto": "el barcelona seguro que gana el partido. ",
+			  "_id": "5821082159d17f5a5f12a293"
+		}
+	 *        
+	 *     }
+	 *
+	 * @apiError UserBadResponse El comentario no ha podido crearse
+	 *
+	 * @apiError BaD-Response:
+	 *     HTTP/1.1 400 Bad Response
+	 *     {
+	 *       "El comentario no ha podido crearse, falta algun campo del formulario" 
+	 *     }
+	 *@apiError Forbidden:
+	 *     HTTP/1.1 403 Forbidden
+	 *     {
+	 *       "Usuario no existente no es posible publicar el comentario" 
+	 *     }
+	 *@apiError Forbidden:
+	 *     HTTP/1.1 403 Forbidden
+	 *     {
+	 *       "La noticia no existe, no se puede publicar el comentario" 
+	 *     }
+	 */
+
+/**
+	 * @api {put} /usuarios/:login Actualiza la información de un usuario
+	 * @apiVersion 1.0.0
+	 * @apiName PutUser
+	 * @apiGroup Usuarios
+	 *
+	 * @apiParam {Number} login Login por el que se identifica al usuario.
+	 *
+	 * @apiSuccess {Number} 204  Código 204 se ha modificado el usuario pero no se devuelve nada.
+	 * 
+	 *
+	 * @apiSuccessExample Success-Response:
+	 *     HTTP/1.1 204 No Content
+	 *     {
+	 *       
+	 *     }
+	 *
+	 * @apiError UserNotFound El login no es correcto.
+	 *
+	 * @apiErrorExample Error-Response:
+	 *     HTTP/1.1 404 Not Found
+	 *     {
+	 *       "El login no es correcto no se ha podido encontrar el usuario"
+	 *     }
+	 */
 
 
 
