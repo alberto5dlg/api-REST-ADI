@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var db = require('./db');
 var app = express();
+var utils = require('./utils/utils');
 app.use(bodyParser.json());
 module.exports = app;
 
@@ -9,6 +10,7 @@ module.exports = app;
 var usuario = require('./routes/usuario');
 var noticia = require('./routes/noticia');
 var comentario = require('./routes/comentario');
+
 
 //Rutas de los metodos, segun clase
 app.use('/api/comentarios', comentario);
@@ -20,24 +22,21 @@ app.get('/',function(pet, res) {
 	res.send("Api REST para ADI: ");
 });
 
-//Abrimos el puerto de Escucha para el servidor Node
-/*app.listen(3000,function() {
-	console.log("Servidor Node ejecutandose sobre http://localhost:3000");
-})*/
+//Conexon
+
+app.set('port', (process.env.PORT || 5000));
+
+app.listen(app.get('port'), function() {
+  console.log('Aplicacion node corriendo en el puerto 5000');
+});
+
 
 //Conectamos con la Base de Datos
 db.start();
 
 
 
-/******** APP EN REMOTO *******/
 
-
-app.set('port', (process.env.PORT || 5000));
-
-app.listen(app.get('port'), function() {
-  console.log('Aplicacion node corriendo en el puerto: ', app.get('port'));
-});
 
 
 
