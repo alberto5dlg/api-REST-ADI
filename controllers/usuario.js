@@ -11,7 +11,7 @@ exports.findByLogin = function(pet, res) {
 			res.status(404);
 			res.send("Usuario no existente.");
 		} else  {
-			var links = utils.getComentUsers(usuario,pet.hostname);
+			var links = utils.getComentUsers(usuario,pet);
 			var response = {
 				usuario,
 				links					
@@ -38,7 +38,7 @@ exports.create = function(pet, res) {
 				res.send("No se puede crear el usuario, algun campo es incorrecto");
 			} else {
 				res.status(201);
-	        	res.header('Location','http://'+pet.hostname+'/api/usuarios/'+ newUsuario.login);
+	        	res.header('Location','http://'+utils.getHostname(pet)+'/api/usuarios/'+ newUsuario.login);
 				res.send(newUsuario);
 			}
 		});
@@ -131,7 +131,7 @@ exports.listAllUsers = function(pet, res) {
 	lista.then(function(usuarios) {
 		var response = {
 			links: {
-				next: 'http://'+pet.hostname+'/api/usuarios/pag/1',
+				next: 'http://'+utils.getHostname(pet)+'/api/usuarios/pag/1',
 			},
 			data: usuarios
 		};
@@ -154,10 +154,10 @@ exports.listPageUsers = function(pet, res) {
 	lista.then(function (usuarios) {
 		var response = {
 			links: {
-				self: 'http://'+pet.hostname+'/api/usuarios/pag/' + pag,
-				first: 'http://'+pet.hostname+'/api/usuarios',
-				previous : 'http://'+pet.hostname+'/api/usuarios/pag/' + antPag,
-				next: 'http://'+pet.hostname+'/api/usuarios/pag/' + sigPag,
+				self: 'http://'+utils.getHostname(pet)+'/api/usuarios/pag/' + pag,
+				first: 'http://'+utils.getHostname(pet)+'/api/usuarios',
+				previous : 'http://'+utils.getHostname(pet)+'/api/usuarios/pag/' + antPag,
+				next: 'http://'+utils.getHostname(pet)+'/api/usuarios/pag/' + sigPag,
 			},
 			data: usuarios
 		}

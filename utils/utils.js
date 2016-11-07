@@ -28,12 +28,12 @@ exports.getHora = function(){
     return hora; 
 }
 
-exports.getComentNews = function(noticia, hostname) {
+exports.getComentNews = function(noticia, pet) {
     var iterator = 1;
     var total ={
         0: {
             rel: 'self',
-            href: 'http://'+hostname+'/api/noticia/'+noticia.noticiaID,
+            href: 'http://'+getHostname(pet)+'/api/noticia/'+noticia.noticiaID,
         },
     }
     for(i = 0; i < noticia.comentariosID.length; i++)
@@ -41,7 +41,7 @@ exports.getComentNews = function(noticia, hostname) {
         var actual = {
             [iterator]: {
                 rel: 'Comentario',
-                href: 'http://'+hostname+'/api/comentarios/'+noticia.comentariosID[i],
+                href: 'http://'+getHostname(pet)+'/api/comentarios/'+noticia.comentariosID[i],
             }
         }
         iterator++;
@@ -50,12 +50,12 @@ exports.getComentNews = function(noticia, hostname) {
     return total;
 }
 
-exports.getComentUsers = function(usuario, hostname) {
+exports.getComentUsers = function(usuario, pet) {
     var iterator = 1;
     var total ={
         0: {
             rel: 'self',
-            href: 'http://'+hostname+'/api/usuario/'+usuario.login,
+            href: 'http://'+getHostname(pet)+'/api/usuario/'+usuario.login,
         },
     }
     for(i = 0; i < usuario.comentariosID.length; i++)
@@ -64,7 +64,7 @@ exports.getComentUsers = function(usuario, hostname) {
         var actual = {
             [iterator]: {
                 rel: 'Comentario',
-                href: 'http://'+hostname+'/api/comentarios/'+usuario.comentariosID[i],
+                href: 'http://'+getHostname(pet)+'/api/comentarios/'+usuario.comentariosID[i],
             }
         }
         iterator++;
@@ -79,4 +79,13 @@ function jsonConcat(o1, o2) {
   o1[key] = o2[key];
  }
  return o1;
+}
+
+
+exports.getHostname = function(pet) {
+    if(pet.hostname ==='localhost'){
+        return pet.hostname+':'+pet.app.get('port');; //Por si estamos ejecutando en localhost
+    }
+    else 
+        return pet.hostname;
 }

@@ -1,4 +1,5 @@
 var Comentario = require('../models/comentario');
+var utils = require('../utils/utils');
 
 //Metodo GET comentario por ID 
 exports.findById = function(pet, res) {
@@ -13,15 +14,15 @@ exports.findById = function(pet, res) {
 				links: {
 					0: {
 						rel: 'self',
-						href: 'http://'+pet.hostname+'/api/comentario/'+comentario.comentarioID,
+						href: 'http://'+utils.getHostname(pet)+'/api/comentario/'+comentario.comentarioID,
 					},
 					1: {
 						rel: 'noticias',
-						href: 'http://'+pet.hostname+'/api/noticias/'+comentario.noticiaID,
+						href: 'http://'+utils.getHostname(pet)+'/api/noticias/'+comentario.noticiaID,
 					},
 					2: {
 						rel: 'usuarios',
-						href: 'http://'+pet.hostname+'/api/usuarios/'+comentario.usuarioLogin,
+						href: 'http://'+utils.getHostname(pet)+'/api/usuarios/'+comentario.usuarioLogin,
 					}
 				}
 			}
@@ -38,7 +39,7 @@ exports.findAll = function(pet, res) {
 	lista.then(function(comentarios) {
 		var response = {
 			links: {
-				next: 'http://'+pet.hostname+'/api/comentarios/pag/1',
+				next: 'http://'+utils.getHostname(pet)+'/api/comentarios/pag/1',
 			},
 			data: comentarios
 		};
@@ -61,10 +62,10 @@ exports.listPage = function(pet, res) {
 	lista.then(function (comentarios) {
 		var response = {
 			links: {
-				self: 'http://'+pet.hostname+'/api/comentarios/pag/' + pag,
-				first: 'http://'+pet.hostname+'/api/comentarios',
-				previous : 'http://'+pet.hostname+'/api/comentarios/pag/' + antPag,
-				next: 'http://'+pet.hostname+'/api/comentarios/pag/' + sigPag,
+				self: 'http://'+utils.getHostname(pet)+'/api/comentarios/pag/' + pag,
+				first: 'http://'+utils.getHostname(pet)+'/api/comentarios',
+				previous : 'http://'+utils.getHostname(pet)+'/api/comentarios/pag/' + antPag,
+				next: 'http://'+utils.getHostname(pet)+'/api/comentarios/pag/' + sigPag,
 			},
 			data: comentarios
 		}

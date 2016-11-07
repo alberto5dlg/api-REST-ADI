@@ -6,6 +6,6 @@ exports.start = function() {
 			console.log('ERROR: En la conexion con la Base de Datos. ' + err);
 		}
 		else 
-			console.log('Conectado a la Base de Datos');
+			console.log('Conectado a la Base de Datos...');
 	});
 }

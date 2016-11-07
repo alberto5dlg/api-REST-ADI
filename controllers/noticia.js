@@ -24,7 +24,7 @@ exports.create = function(pet, res) {
 					} 
 					else {
 						res.status(201);
-						res.header('Location','http://'+pet.hostname+'/api/noticias/'+ noticia.noticiaID);
+						res.header('Location','http://'+utils.getHostname(pet)+'/api/noticias/'+ noticia.noticiaID);
 						res.send(newNoticia);
 					}
 				});
@@ -51,7 +51,7 @@ exports.findById = function(pet, res) {
 			res.send("Noticia no encontrada");
 		}
 		else {
-			var links = utils.getComentNews(noticia,pet.hostname);
+			var links = utils.getComentNews(noticia,pet);
 			var response = {
 				noticia,
 				links					
@@ -104,7 +104,7 @@ exports.listAll = function(pet, res) {
 	lista.then(function(noticias) {
 		var response = {
 			links: {
-				next: 'http://'+pet.hostname+'/api/noticias/pag/1',
+				next: 'http://'+utils.getHostname(pet)+'/api/noticias/pag/1',
 			},
 			data: noticias
 		};
@@ -127,10 +127,10 @@ exports.listPage = function(pet, res) {
 	lista.then(function (noticias) {
 		var response = {
 			links: {
-				self: 'http://'+pet.hostname+'/api/noticias/pag/' + pag,
-				first: 'http://'+pet.hostname+'/api/noticias',
-				previous : 'http://'+pet.hostname+'/api/noticias/pag/' + antPag,
-				next: 'http://'+pet.hostname+'/api/noticias/pag/' + sigPag,
+				self: 'http://'+utils.getHostname(pet)+'/api/noticias/pag/' + pag,
+				first: 'http://'+utils.getHostname(pet)+'/api/noticias',
+				previous : 'http://'+utils.getHostname(pet)+'/api/noticias/pag/' + antPag,
+				next: 'http://'+utils.getHostname(pet)+'/api/noticias/pag/' + sigPag,
 			},
 			data: noticias
 		}
@@ -184,7 +184,7 @@ exports.commentNews = function(pet, res) {
 								} 
 								else {
 									res.status(201);
-									res.header('Location','http://'+pet.hostname+'/api/comentarios/'+ newComent.comentarioID);
+									res.header('Location','http://'+utils.getHostname(pet)+'/api/comentarios/'+ newComent.comentarioID);
 									res.send(newComent);
 								}
 							});
