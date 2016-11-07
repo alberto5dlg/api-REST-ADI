@@ -91,3 +91,5 @@ A parte de los requisitos minimos exigidos para superar la práctica se han impl
 - Implementacion de Hipermedia en el API.
 
 - Desplegar el API en algun servicio en la nube, en mi caso he optado por heroku [API REST Heroku] (https://thawing-fjord-82104.herokuapp.com)
+ 
+- Documentacion del API REST a partir de la herramienta APIDOC, para ver la documentacion hay que ir a la carpeta /documentation y abrir el archivo index.html.
