@@ -33,7 +33,7 @@ exports.getComentNews = function(noticia, pet) {
     var total ={
         0: {
             rel: 'self',
-            href: 'http://'+getHostname(pet)+'/api/noticia/'+noticia.noticiaID,
+            href: 'http://'+getHostnameUtils(pet)+'/api/noticia/'+noticia.noticiaID,
         },
     }
     for(i = 0; i < noticia.comentariosID.length; i++)
@@ -41,7 +41,7 @@ exports.getComentNews = function(noticia, pet) {
         var actual = {
             [iterator]: {
                 rel: 'Comentario',
-                href: 'http://'+getHostname(pet)+'/api/comentarios/'+noticia.comentariosID[i],
+                href: 'http://'+getHostnameUtils(pet)+'/api/comentarios/'+noticia.comentariosID[i],
             }
         }
         iterator++;
@@ -55,7 +55,7 @@ exports.getComentUsers = function(usuario, pet) {
     var total ={
         0: {
             rel: 'self',
-            href: 'http://'+getHostname(pet)+'/api/usuario/'+usuario.login,
+            href: 'http://'+getHostnameUtils(pet)+'/api/usuario/'+usuario.login,
         },
     }
     for(i = 0; i < usuario.comentariosID.length; i++)
@@ -64,7 +64,7 @@ exports.getComentUsers = function(usuario, pet) {
         var actual = {
             [iterator]: {
                 rel: 'Comentario',
-                href: 'http://'+getHostname(pet)+'/api/comentarios/'+usuario.comentariosID[i],
+                href: 'http://'+getHostnameUtils(pet)+'/api/comentarios/'+usuario.comentariosID[i],
             }
         }
         iterator++;
@@ -79,6 +79,14 @@ function jsonConcat(o1, o2) {
   o1[key] = o2[key];
  }
  return o1;
+}
+
+function getHostnameUtils(pet) {
+    if(pet.hostname ==='localhost'){
+        return pet.hostname+':'+pet.app.get('port');; //Por si estamos ejecutando en localhost
+    }
+    else 
+        return pet.hostname;
 }
 
 
