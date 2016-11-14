@@ -51,6 +51,9 @@ Para todos los metodos de POST y PUT tendremos que pasarle un JSON con los campo
 	
 	- **api/noticias/:id** -> Borramos una noticia a partir de su ID, para borrar una noticia será necesario autentificarse con el username: admin y password: 123456
 
+- **Comentarios**
+	- No se ha contemplado borrar un comentario, ni que se borren los comentarios de un usuario que no existe debido a que aunque el usuario no exista la noticia mantendrá el comentario, ya que puede ser de utilidad.
+
 
 ### PUT 
 - **Usuarios**
